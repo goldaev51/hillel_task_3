@@ -5,9 +5,11 @@ def parse(query: str) -> dict:
     res = {}
 
     url_requests_str = query.split('?', 1)[1]
+    # if '&' not in url_requests_str:
+    #     return {}
     requests = url_requests_str.split('&')
     for request in requests:
-        if len(request) == 0:
+        if len(request) == 0 and '=' not in request:
             continue
         request_split = request.split('=', 1)
         request_name = request_split[0]
@@ -22,6 +24,11 @@ if __name__ == '__main__':
     assert parse('http://example.com/') == {}
     assert parse('http://example.com/?') == {}
     assert parse('http://example.com/?name=Dima') == {'name': 'Dima'}
+    assert parse('https://example.com/path/to/page?name=ferret&color=purple&login===artem==') == {'name': 'ferret',
+                                                                                                  'color': 'purple',
+                                                                                                  'login': '==artem=='}
+    assert parse('http://example.com/?name=&Dima') == {}
+    assert parse('http://example.com/?name&Dima') == {}
 
 
 def parse_cookie(query: str) -> dict:
