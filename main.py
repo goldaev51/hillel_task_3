@@ -1,5 +1,19 @@
 def parse(query: str) -> dict:
-    return {}
+    if '?' not in query:
+        return {}
+
+    res = {}
+
+    url_requests_str = query.split('?', 1)[1]
+    requests = url_requests_str.split('&')
+    for request in requests:
+        if len(request) == 0:
+            continue
+        request_split = request.split('=', 1)
+        request_name = request_split[0]
+        request_value = request_split[1]
+        res[request_name] = request_value
+    return res
 
 
 if __name__ == '__main__':
