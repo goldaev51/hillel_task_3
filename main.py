@@ -41,3 +41,6 @@ if __name__ == '__main__':
     assert parse_cookie('name=====Dima=User=====;;;;;;;;age=28;job-developer') == {'name': '====Dima=User=====',
                                                                                    'age': '28'}
     assert parse_cookie('name;Dima;') == {}
+    assert parse_cookie('name=') == {'name': ''}
+    assert parse_cookie('=Dima') == {'': 'Dima'}
+    assert parse_cookie('=Dima;age=') == {'': 'Dima', 'age': ''}
