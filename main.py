@@ -5,8 +5,6 @@ def parse(query: str) -> dict:
     res = {}
 
     url_requests_str = query.split('?', 1)[1]
-    # if '&' not in url_requests_str:
-    #     return {}
     requests = url_requests_str.split('&')
     for request in requests:
         if len(request) == 0 or '=' not in request:
